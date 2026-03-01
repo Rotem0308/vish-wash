@@ -1,26 +1,175 @@
 @import "tailwindcss";
 
+/* ─── Enable class-based dark mode for dark: Tailwind prefix ─── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Light theme tokens ─────────────────────────────────────── */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --surface: #f9fafb;
+  --surface-2: #f3f4f6;
+  --border: #e5e7eb;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --card-border: #f3f4f6;
+}
+
+/* ─── Dark theme tokens ──────────────────────────────────────── */
+.dark {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --surface: #1e293b;
+  --surface-2: #334155;
+  --border: #334155;
+  --muted: #94a3b8;
+  --card: #1e293b;
+  --card-border: #334155;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-rubik);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base ───────────────────────────────────────────────────── */
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  /* Accessibility: font-size is controlled by AccessibilityToolbar via data-font-size */
 }
+
+/* Compensate for sticky header (nav h-16=64px + announcement bar ~44px) */
+[id] { scroll-margin-top: 110px; }
+
+html[data-font-size="sm"]  { font-size: 14px; }
+html[data-font-size="md"]  { font-size: 16px; }
+html[data-font-size="lg"]  { font-size: 18px; }
+html[data-font-size="xl"]  { font-size: 20px; }
 
 body {
+  overflow-x: hidden;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-rubik), 'Rubik', system-ui, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
+
+/* ─── Dark mode overrides for Tailwind utility classes ───────── */
+.dark .bg-white        { background-color: var(--card) !important; }
+.dark .bg-gray-50      { background-color: var(--surface) !important; }
+.dark .bg-gray-100     { background-color: var(--surface-2) !important; }
+.dark .bg-gray-900     { background-color: #020617 !important; }
+.dark .text-gray-900   { color: var(--foreground) !important; }
+.dark .text-gray-800   { color: #e2e8f0 !important; }
+.dark .text-gray-700   { color: #cbd5e1 !important; }
+.dark .text-gray-600   { color: #94a3b8 !important; }
+.dark .text-gray-500   { color: #64748b !important; }
+.dark .text-gray-400   { color: #475569 !important; }
+.dark .border-gray-100 { border-color: var(--card-border) !important; }
+.dark .border-gray-200 { border-color: var(--border) !important; }
+.dark .border-gray-800 { border-color: #1e293b !important; }
+.dark .shadow-sm       { box-shadow: 0 1px 2px rgba(0,0,0,0.4) !important; }
+.dark .bg-blue-50      { background-color: rgba(59,130,246,0.12) !important; }
+.dark .bg-green-50     { background-color: rgba(34,197,94,0.1) !important; }
+.dark .bg-purple-50    { background-color: rgba(168,85,247,0.1) !important; }
+.dark .bg-white\/95    { background-color: rgba(15,23,42,0.97) !important; }
+.dark input,
+.dark textarea {
+  background-color: var(--surface-2) !important;
+  color: var(--foreground) !important;
+  border-color: var(--border) !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder { color: #475569 !important; }
+
+/* ─── WhatsApp pulse animation ───────────────────────────────── */
+@keyframes pulse-ring {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37,211,102,0.7); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+}
+.whatsapp-pulse { animation: pulse-ring 2s infinite; }
+
+/* ─── Fade-in-up animation ───────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+
+/* ─── Chatbot animations ─────────────────────────────────────── */
+@keyframes chatSlideUp {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.chat-slide-up { animation: chatSlideUp 0.22s ease-out forwards; }
+
+/* ─── Carousel progress bar ─────────────────────────────────── */
+@keyframes carouselProgress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+.carousel-progress { animation: carouselProgress 4.5s linear forwards; }
+
+/* ─── Gradient text (violet→purple→cyan) ───────────────────── */
+.gradient-text {
+  background: linear-gradient(120deg, #7c3aed 0%, #a855f7 45%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ─── Cursor blink for typewriter ───────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── Mesh gradient sections ──────────────────────────────── */
+.mesh-bg {
+  background:
+    radial-gradient(at 15% 25%, hsla(270,75%,88%,0.35) 0px, transparent 55%),
+    radial-gradient(at 85% 15%, hsla(285,65%,92%,0.28) 0px, transparent 50%),
+    radial-gradient(at 60% 85%, hsla(250,55%,90%,0.30) 0px, transparent 55%),
+    radial-gradient(at 10% 75%, hsla(300,45%,94%,0.25) 0px, transparent 50%),
+    #fdfdfd;
+}
+
+/* ─── Slide-down (announcement bar) ─────────────────────────── */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-down { animation: slideDown 0.35s ease-out forwards; }
+
+/* ─── Fade-up (hero entrance) ────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+/* Stagger delay helpers */
+.delay-100 { animation-delay: 0.10s; }
+.delay-200 { animation-delay: 0.20s; }
+.delay-300 { animation-delay: 0.30s; }
+.delay-450 { animation-delay: 0.45s; }
+.delay-600 { animation-delay: 0.60s; }
+.delay-750 { animation-delay: 0.75s; }
+
+/* ─── Scroll reveal ──────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+              transform 0.65s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.is-visible  { opacity: 1; transform: translateY(0); }
+.reveal.reveal-d1   { transition-delay: 0.05s; }
+.reveal.reveal-d2   { transition-delay: 0.15s; }
+.reveal.reveal-d3   { transition-delay: 0.25s; }
+.reveal.reveal-d4   { transition-delay: 0.35s; }
+.reveal.reveal-d5   { transition-delay: 0.45s; }
