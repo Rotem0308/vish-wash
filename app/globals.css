@@ -1,7 +1,236 @@
 @import "tailwindcss";
 
-/* ─── Enable class-based dark mode for dark: Tailwind prefix ─── */
+/* ─── Enable class-based dark mode ──────────────────────────── */
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Premium Light theme tokens ─────────────────────────────── */
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --surface: #f8fafc;
+  --surface-2: #f1f5f9;
+  --border: #e2e8f0;
+  --muted: #64748b;
+  --card: #ffffff;
+  --card-border: #e2e8f0;
+
+  /* Premium palette */
+  --navy:      #0f172a;
+  --navy-mid:  #1e293b;
+  --navy-soft: #334155;
+  --cyan:      #0ea5e9;
+  --cyan-light:#e0f2fe;
+  --gold:      #d97706;
+  --gold-light:#fef3c7;
+}
+
+/* ─── Dark theme tokens ──────────────────────────────────────── */
+.dark {
+  --background: #0a0f1e;
+  --foreground: #f0f4f8;
+  --surface: #111827;
+  --surface-2: #1f2937;
+  --border: #1e293b;
+  --muted: #94a3b8;
+  --card: #111827;
+  --card-border: #1e293b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-rubik);
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Compensate for sticky header */
+[id] { scroll-margin-top: 110px; }
+
+html[data-font-size="sm"]  { font-size: 14px; }
+html[data-font-size="md"]  { font-size: 16px; }
+html[data-font-size="lg"]  { font-size: 18px; }
+html[data-font-size="xl"]  { font-size: 20px; }
+
+body {
+  overflow-x: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-rubik), 'Rubik', system-ui, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ─── Dark mode Tailwind overrides ──────────────────────────── */
+.dark .bg-white        { background-color: var(--card) !important; }
+.dark .bg-gray-50      { background-color: var(--surface) !important; }
+.dark .bg-gray-100     { background-color: var(--surface-2) !important; }
+.dark .bg-gray-900     { background-color: #020617 !important; }
+.dark .text-gray-900   { color: var(--foreground) !important; }
+.dark .text-gray-800   { color: #e2e8f0 !important; }
+.dark .text-gray-700   { color: #cbd5e1 !important; }
+.dark .text-gray-600   { color: #94a3b8 !important; }
+.dark .text-gray-500   { color: #64748b !important; }
+.dark .text-gray-400   { color: #475569 !important; }
+.dark .border-gray-100 { border-color: var(--card-border) !important; }
+.dark .border-gray-200 { border-color: var(--border) !important; }
+.dark .border-gray-800 { border-color: #1e293b !important; }
+.dark .shadow-sm       { box-shadow: 0 1px 2px rgba(0,0,0,0.4) !important; }
+.dark .bg-blue-50      { background-color: rgba(14,165,233,0.10) !important; }
+.dark .bg-green-50     { background-color: rgba(34,197,94,0.10) !important; }
+.dark .bg-white\/95    { background-color: rgba(10,15,30,0.97) !important; }
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: var(--surface-2) !important;
+  color: var(--foreground) !important;
+  border-color: var(--border) !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder { color: #475569 !important; }
+
+/* ─── WhatsApp pulse ─────────────────────────────────────────── */
+@keyframes pulse-ring {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37,211,102,0.7); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+}
+.whatsapp-pulse { animation: pulse-ring 2s infinite; }
+
+/* ─── Chatbot ────────────────────────────────────────────────── */
+@keyframes chatSlideUp {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.chat-slide-up { animation: chatSlideUp 0.22s ease-out forwards; }
+
+/* ─── Carousel progress ──────────────────────────────────────── */
+@keyframes carouselProgress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+.carousel-progress { animation: carouselProgress 4.5s linear forwards; }
+
+/* ─── Slide-down (announcement bar) ─────────────────────────── */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-down { animation: slideDown 0.35s ease-out forwards; }
+
+/* ─── Cursor blink for typewriter ────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── Premium gradient text (navy → cyan) ──────────────────── */
+.gradient-text {
+  background: linear-gradient(120deg, #0f172a 0%, #0ea5e9 60%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* accent variant (cyan → sky) */
+.gradient-text-cyan {
+  background: linear-gradient(120deg, #0ea5e9 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Fade-up (hero entrance) ────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeUp 0.75s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+/* Stagger delay helpers */
+.delay-100 { animation-delay: 0.10s; }
+.delay-200 { animation-delay: 0.20s; }
+.delay-300 { animation-delay: 0.30s; }
+.delay-450 { animation-delay: 0.45s; }
+.delay-600 { animation-delay: 0.60s; }
+.delay-750 { animation-delay: 0.75s; }
+
+/* ─── Premium scroll reveal ─────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.80s cubic-bezier(0.16,1,0.3,1),
+    transform 0.80s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.is-visible  { opacity: 1; transform: translateY(0); }
+.reveal.reveal-d1   { transition-delay: 0.05s; }
+.reveal.reveal-d2   { transition-delay: 0.15s; }
+.reveal.reveal-d3   { transition-delay: 0.25s; }
+.reveal.reveal-d4   { transition-delay: 0.35s; }
+.reveal.reveal-d5   { transition-delay: 0.45s; }
+
+/* ─── Floating label form ────────────────────────────────────── */
+.floating-group { position: relative; }
+.floating-group input,
+.floating-group textarea,
+.floating-group select {
+  width: 100%;
+  padding: 1.25rem 1rem 0.4rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 0.75rem;
+  font-size: 0.9375rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fff;
+  color: #0f172a;
+}
+.floating-group input:focus,
+.floating-group textarea:focus,
+.floating-group select:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.12);
+}
+.floating-group label {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.9375rem;
+  color: #64748b;
+  pointer-events: none;
+  transition: all 0.18s cubic-bezier(0.4,0,0.2,1);
+  transform-origin: right top;
+}
+.floating-group input:focus ~ label,
+.floating-group input:not(:placeholder-shown) ~ label,
+.floating-group textarea:focus ~ label,
+.floating-group textarea:not(:placeholder-shown) ~ label,
+.floating-group select:focus ~ label,
+.floating-group select.has-value ~ label {
+  top: 0.35rem;
+  font-size: 0.72rem;
+  color: #0ea5e9;
+  font-weight: 600;
+}
+
+/* Dark floating label */
+.dark .floating-group input,
+.dark .floating-group textarea,
+.dark .floating-group select {
+  background: #1f2937 !important;
+  border-color: #1e293b !important;
+  color: #f0f4f8 !important;
+}
+.dark .floating-group input:focus,
+.dark .floating-group textarea:focus,
+.dark .floating-group select:focus {
+  border-color: #0ea5e9 !important;
+}
+
 
 /* ─── Light theme tokens ─────────────────────────────────────── */
 :root {

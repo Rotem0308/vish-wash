@@ -97,39 +97,38 @@ export default function ContactSection() {
     return s;
   }, [formState.name, formState.phone, formState.service, formState.message]);
 
-  const inputCls =
-    "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-100 outline-none text-sm transition-colors placeholder:text-gray-400";
-
   return (
     <section
       id="contact"
       ref={sectionRef}
-      className="py-16 sm:py-20 bg-gradient-to-b from-violet-50/40 via-gray-50 to-white"
+      className="py-16 sm:py-24 bg-slate-50"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── Header ─────────────────────────────────────────────────── */}
-        <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3">
-            צרו קשר
+        <div className="text-center mb-12">
+          <span className="inline-block text-xs font-bold tracking-widest text-cyan-600 uppercase mb-3">צרו קשר</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">
+            בקשו הצעת מחיר חינם
           </h2>
-          <p className="text-gray-500 text-base sm:text-lg max-w-xl mx-auto">
-            בקשו הצעת מחיר חינם — ראו את הסצנה מתנקה ככל שממלאים את הטופס!
+          <div className="mx-auto w-14 h-1 rounded-full bg-cyan-500 mb-5" />
+          <p className="text-slate-500 text-base sm:text-lg max-w-xl mx-auto">
+            ראו את הסצנה מתנקה ככל שממלאים את הטופס — ענו על 4 שדות ושלחו!
           </p>
         </div>
 
         {/* ── Quick-contact strip ─────────────────────────────────────── */}
         <div className="flex flex-wrap justify-center gap-3 mb-10">
           <a href={`tel:${PHONE_NUMBER}`}
-            className="inline-flex items-center gap-2.5 bg-white border border-gray-200 rounded-full px-5 py-2.5 text-sm font-semibold text-gray-700 hover:border-violet-300 hover:shadow-sm transition-all">
+            className="inline-flex items-center gap-2.5 bg-white border border-slate-200 rounded-full px-5 py-2.5 text-sm font-semibold text-slate-700 hover:border-cyan-400 hover:shadow-sm transition-all">
             <span className="text-base">📞</span>{PHONE_NUMBER}
           </a>
           <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 bg-white border border-gray-200 rounded-full px-5 py-2.5 text-sm font-semibold text-gray-700 hover:border-green-400 hover:shadow-sm transition-all">
+            className="inline-flex items-center gap-2.5 bg-white border border-slate-200 rounded-full px-5 py-2.5 text-sm font-semibold text-slate-700 hover:border-emerald-400 hover:shadow-sm transition-all">
             <span className="text-base">💬</span>וואטסאפ
           </a>
           <a href={`mailto:${EMAIL}`}
-            className="inline-flex items-center gap-2.5 bg-white border border-gray-200 rounded-full px-5 py-2.5 text-sm font-semibold text-gray-700 hover:border-violet-300 hover:shadow-sm transition-all">
+            className="inline-flex items-center gap-2.5 bg-white border border-slate-200 rounded-full px-5 py-2.5 text-sm font-semibold text-slate-700 hover:border-cyan-400 hover:shadow-sm transition-all">
             <span className="text-base">✉️</span>{EMAIL}
           </a>
         </div>
@@ -138,7 +137,7 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
 
           {/* ── 3D Scene ───────────────────────────────────────────────── */}
-          <div className="relative rounded-2xl overflow-hidden shadow-xl border border-violet-100 min-h-[320px] lg:min-h-[540px] bg-[#110d1c]">
+          <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 min-h-[320px] lg:min-h-[540px] bg-[#0a0f1e]">
             {sceneVisible ? (
               <CleaningScene
                 cleanlinessScore={cleanlinessScore}
@@ -147,7 +146,7 @@ export default function ContactSection() {
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-8 h-8 rounded-full border-2 border-violet-400/40 border-t-violet-400 animate-spin" />
+                <div className="w-8 h-8 rounded-full border-2 border-cyan-400/40 border-t-cyan-400 animate-spin" />
               </div>
             )}
 
@@ -159,7 +158,7 @@ export default function ContactSection() {
               </div>
               <div className="h-1.5 rounded-full bg-white/20 overflow-hidden">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-violet-400 to-cyan-400 transition-all duration-700"
+                  className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-sky-400 transition-all duration-700"
                   style={{ width: `${cleanlinessScore * 25}%` }}
                 />
               </div>
@@ -181,7 +180,7 @@ export default function ContactSection() {
                   key={label}
                   className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border transition-all duration-500 ${
                     cleanlinessScore > i
-                      ? "bg-violet-500/80 border-violet-300/60 text-white"
+                      ? "bg-cyan-500/80 border-cyan-300/60 text-white"
                       : "bg-black/30 border-white/10 text-white/40"
                   }`}
                 >
@@ -192,76 +191,75 @@ export default function ContactSection() {
           </div>
 
           {/* ── Form ───────────────────────────────────────────────────── */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-8">
             {submitted ? (
               <div className="flex flex-col items-center justify-center h-full py-12 gap-5 text-center">
                 <div className="text-6xl">{alreadySent && !loading ? "⏳" : "✅"}</div>
-                <h3 className="text-2xl font-bold text-gray-900">
+                <h3 className="text-2xl font-bold text-slate-900">
                   {alreadySent && !loading ? "כבר שלחתם פנייה" : "ההודעה נשלחה!"}
                 </h3>
-                <p className="text-gray-500 text-sm max-w-xs">
+                <p className="text-slate-500 text-sm max-w-xs">
                   {alreadySent && !loading
                     ? "קיבלנו את הפנייה שלכם ונחזור אליכם בהקדם. אם הנושא דחוף – התקשרו."
                     : "נחזור אליכם תוך שעתיים. תודה שפניתם!"}
                 </p>
                 {alreadySent && !loading && (
                   <a href={`tel:${PHONE_NUMBER}`}
-                    className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-semibold text-sm px-6 py-3 rounded-xl transition-colors shadow-sm">
+                    className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm px-6 py-3 rounded-xl transition-colors shadow-sm">
                     📞 התקשרו עכשיו
                   </a>
                 )}
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-                <h3 className="text-xl font-bold text-gray-900 mb-1">בקשו הצעת מחיר חינם</h3>
-                <p className="text-xs text-violet-600 mb-4">כל שדה שתמלאו ינקה את הסצנה 🧹✨</p>
+              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                <div className="mb-2">
+                  <h3 className="text-xl font-bold text-slate-900 mb-1">בקשו הצעת מחיר חינם</h3>
+                  <p className="text-xs text-cyan-600">כל שדה שתמלאו ינקה את הסצנה 🧹✨</p>
+                </div>
 
-                {/* Name */}
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">שם מלא *</label>
+                {/* Name — floating label */}
+                <div className="floating-group">
                   <input id="name" name="name" type="text" required
-                    placeholder="ישראל ישראלי" value={formState.name} onChange={handleChange}
-                    className={inputCls} />
+                    placeholder=" " value={formState.name} onChange={handleChange} />
+                  <label htmlFor="name">שם מלא *</label>
                 </div>
 
-                {/* Phone */}
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">מספר טלפון *</label>
+                {/* Phone — floating label */}
+                <div className="floating-group">
                   <input id="phone" name="phone" type="tel" required
-                    placeholder="050-123-4567" value={formState.phone} onChange={handleChange}
-                    className={inputCls} />
+                    placeholder=" " value={formState.phone} onChange={handleChange} />
+                  <label htmlFor="phone">מספר טלפון *</label>
                 </div>
 
-                {/* Service */}
-                <div>
-                  <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-1">
-                    סוג שירות
-                    <span className="text-violet-500 text-[11px] mr-1">(מופיע בסצנה!)</span>
-                  </label>
+                {/* Service — floating label select */}
+                <div className="floating-group">
                   <select id="service" name="service" value={formState.service} onChange={handleChange}
-                    className={`${inputCls} cursor-pointer`}>
-                    <option value="">בחרו שירות...</option>
+                    className={formState.service ? "has-value" : ""}>
+                    <option value=""> </option>
                     {SERVICES.map((s) => (
                       <option key={s.value} value={s.value}>{s.label}</option>
                     ))}
                   </select>
+                  <label htmlFor="service">
+                    סוג שירות
+                    <span className="text-cyan-500 text-[11px] mr-1"> (מופיע בסצנה!)</span>
+                  </label>
                 </div>
 
-                {/* Email */}
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">כתובת אימייל</label>
+                {/* Email — floating label */}
+                <div className="floating-group">
                   <input id="email" name="email" type="email"
-                    placeholder="name@company.co.il" value={formState.email} onChange={handleChange}
-                    className={inputCls} />
+                    placeholder=" " value={formState.email} onChange={handleChange} />
+                  <label htmlFor="email">כתובת אימייל</label>
                 </div>
 
-                {/* Message */}
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">הודעה</label>
+                {/* Message — floating label */}
+                <div className="floating-group">
                   <textarea id="message" name="message" rows={4}
-                    placeholder="ספרו לנו על המקום ועל צרכי הניקוי שלכם..."
+                    placeholder=" "
                     value={formState.message} onChange={handleChange}
-                    className={`${inputCls} resize-none`} />
+                    style={{ resize: "none" }} />
+                  <label htmlFor="message">הודעה</label>
                 </div>
 
                 {error && (
@@ -272,7 +270,7 @@ export default function ContactSection() {
                 )}
 
                 <button type="submit" disabled={loading}
-                  className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-base py-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                  className="w-full bg-slate-900 hover:bg-slate-800 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-base py-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2">
                   {loading ? (
                     <>
                       <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -286,7 +284,7 @@ export default function ContactSection() {
                   )}
                 </button>
 
-                <p className="text-xs text-gray-400 text-center">
+                <p className="text-xs text-slate-400 text-center">
                   אנחנו שומרים על פרטיותכם. ללא דואר זבל, לעולם.
                 </p>
               </form>
