@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import MarqueeSection from "@/components/MarqueeSection";
 import TrustSection from "@/components/TrustSection";
 import ServicesSection from "@/components/ServicesSection";
 import ImageCarousel from "@/components/ImageCarousel";
@@ -11,6 +12,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <MarqueeSection />
       <TrustSection />
       <ServicesSection />
       <ImageCarousel />

@@ -3,25 +3,36 @@ import ServiceCard from "./ServiceCard";
 
 export default function ServicesSection() {
   return (
-    <section id="services" aria-label="השירותים שלנו" className="py-16 sm:py-24 bg-slate-50">
+    <section id="services" aria-label="השירותים שלנו" className="py-24 sm:py-32 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
-        <div className="text-center mb-14">
-          <span className="inline-block text-xs font-bold tracking-widest text-cyan-600 uppercase mb-3">מה אנחנו מציעים</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">
+        <div className="text-center mb-16">
+          <span
+            className="inline-block text-xs font-bold tracking-widest uppercase mb-4 px-3 py-1 rounded-full"
+            style={{ color: "#0891b2", background: "rgba(6,182,212,0.08)", border: "1px solid rgba(6,182,212,0.20)" }}
+          >
+            מה אנחנו מציעים
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-5 tracking-tight">
             השירותים שלנו
           </h2>
-          {/* Cyan underline accent */}
-          <div className="mx-auto w-14 h-1 rounded-full bg-cyan-500 mb-5" />
-          <p className="text-slate-500 text-base sm:text-lg max-w-xl mx-auto">
+          {/* Thin cyan rule */}
+          <div className="mx-auto w-12 h-[3px] rounded-full mb-6" style={{ background: "linear-gradient(to left, #0f172a, #06b6d4)" }} />
+          <p className="text-slate-500 text-lg max-w-xl mx-auto">
             ניקוי מקצועי המותאם לכל סוג עסק. ללא חוזים נעולים. רק תוצאות עקביות.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service) => (
-            <ServiceCard key={service.id} service={service} />
+        {/* Bento-box asymmetric grid */}
+        <div className="bento-grid">
+          {services.map((service, i) => (
+            <ServiceCard
+              key={service.id}
+              service={service}
+              featured={i === 0}
+              className={`bento-${i + 1}`}
+            />
           ))}
         </div>
       </div>

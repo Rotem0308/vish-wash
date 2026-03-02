@@ -66,20 +66,25 @@ export default function Header() {
         </div>
       )}
 
-      {/* Main nav */}
+      {/* Main nav — always glassmorphism */}
       <header
-        className={`transition-all duration-500 ${
-          scrolled
-            ? "bg-white/97 backdrop-blur-md border-b border-gray-100 shadow-lg shadow-black/[0.07]"
-            : "bg-transparent border-b border-transparent"
+        className={`transition-all duration-500 border-b ${
+          scrolled ? "shadow-lg shadow-black/[0.06]" : ""
         }`}
+        style={{
+          background: scrolled ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.78)",
+          backdropFilter: "blur(14px) saturate(180%)",
+          WebkitBackdropFilter: "blur(14px) saturate(180%)",
+          borderColor: scrolled ? "rgba(226,232,240,0.8)" : "rgba(226,232,240,0.40)",
+        }}
       >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 font-bold text-xl text-violet-700 tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded-md"
+            className="flex items-center gap-2 font-bold text-xl tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 rounded-md"
+            style={{ color: "#0f172a" }}
           >
             {logoError ? (
               <>
@@ -105,10 +110,10 @@ export default function Header() {
               <a
                 key={link.href}
                 href={link.href}
-                className="relative text-sm font-medium text-gray-700 hover:text-violet-700 transition-colors duration-200 group py-1"
+                className="relative text-sm font-semibold transition-colors duration-200 group py-1 text-slate-600 hover:text-slate-900"
               >
-                {link.label}
-                <span className="absolute -bottom-0.5 right-0 w-0 group-hover:w-full h-0.5 bg-violet-600 transition-all duration-300 rounded-full" />
+                <span>{link.label}</span>
+                <span className="absolute -bottom-0.5 right-0 w-0 group-hover:w-full h-0.5 bg-cyan-500 transition-all duration-300 rounded-full" />
               </a>
             ))}
           </nav>
@@ -127,10 +132,15 @@ export default function Header() {
               <PhoneIcon />
               <span>{PHONE_NUMBER}</span>
             </a>
-            {/* Quote CTA */}
+            {/* Quote CTA — pill shape, scales on hover */}
             <a
               href="#contact"
-              className="inline-flex items-center gap-1.5 bg-violet-600 hover:bg-violet-700 text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-md shadow-violet-200 hover:shadow-lg hover:shadow-violet-300/60 hover:-translate-y-0.5 transition-all duration-200"
+              className="inline-flex items-center gap-1.5 text-white font-bold text-sm px-6 py-2.5 rounded-full transition-all duration-200 hover:scale-105 hover:-translate-y-0.5"
+              style={{
+                background: "linear-gradient(135deg, #0f172a 0%, #0e7490 100%)",
+                border: "1px solid rgba(6,182,212,0.45)",
+                boxShadow: "0 4px 14px rgba(6,182,212,0.30)",
+              }}
             >
               הצעת מחיר חינם ✨
             </a>
@@ -176,7 +186,12 @@ export default function Header() {
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
           menuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
-        } bg-white/97 backdrop-blur-sm border-t border-violet-100`}
+        } border-t`}
+        style={{
+          background: "rgba(255,255,255,0.95)",
+          backdropFilter: "blur(12px)",
+          borderColor: "rgba(226,232,240,0.7)",
+        }}
       >
         <div className="px-4 py-4 space-y-1">
           {navLinks.map((link) => (
@@ -193,7 +208,12 @@ export default function Header() {
             <a
               href="#contact"
               onClick={(e) => handleMobileNavClick(e, "#contact")}
-              className="flex-1 flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-bold px-4 py-3 rounded-xl transition-colors duration-200 text-sm"
+              className="flex-1 flex items-center justify-center gap-2 text-white font-bold px-4 py-3 rounded-full transition-all duration-200 text-sm"
+              style={{
+                background: "linear-gradient(135deg, #0f172a 0%, #0e7490 100%)",
+                border: "1px solid rgba(6,182,212,0.4)",
+                boxShadow: "0 4px 14px rgba(6,182,212,0.25)",
+              }}
             >
               הצעת מחיר חינם ✨
             </a>
