@@ -49,12 +49,16 @@ export default function ContactSection() {
   const [error, setError] = useState<string | null>(null);
 
   // On mount: check if this user already submitted (client-side guard)
+  // Set NEXT_PUBLIC_DISABLE_SUBMIT_GUARD=true in .env.local to bypass (dev/testing)
+  const submitGuardDisabled = process.env.NEXT_PUBLIC_DISABLE_SUBMIT_GUARD === "true";
+
   useEffect(() => {
+    if (submitGuardDisabled) return;
     if (localStorage.getItem(STORAGE_KEY) === "1") {
       setAlreadySent(true);
       setSubmitted(true);
     }
-  }, []);
+  }, [submitGuardDisabled]);
 
   /** Fire-and-forget Make / n8n webhook — URL set via NEXT_PUBLIC_MAKE_WEBHOOK_URL */
   async function triggerWebhook(payload: typeof formState) {
@@ -102,7 +106,7 @@ export default function ContactSection() {
         );
         return;
       }
-      localStorage.setItem(STORAGE_KEY, "1");
+      if (!submitGuardDisabled) localStorage.setItem(STORAGE_KEY, "1");
       setSubmitted(true);
       // Trigger Make / n8n webhook (non-blocking)
       triggerWebhook(formState);
