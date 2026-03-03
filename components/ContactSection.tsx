@@ -94,7 +94,10 @@ export default function ContactSection() {
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(submitGuardDisabled ? { "x-dev-bypass": "1" } : {}),
+        },
         body: JSON.stringify(formState),
       });
       const data = await res.json();
@@ -110,6 +113,13 @@ export default function ContactSection() {
       setSubmitted(true);
       // Trigger Make / n8n webhook (non-blocking)
       triggerWebhook(formState);
+      // In dev mode, auto-reset after 3 s so the form can be re-submitted
+      if (submitGuardDisabled) {
+        setTimeout(() => {
+          setSubmitted(false);
+          setFormState({ name: "", phone: "", email: "", service: "", message: "" });
+        }, 3000);
+      }
     } catch {
       setError("בעיית חיבור. בדקו את האינטרנט ונסו שוב.");
     } finally {

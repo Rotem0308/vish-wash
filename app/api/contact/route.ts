@@ -33,10 +33,17 @@ export async function POST(req: NextRequest) {
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
 
   if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "rate_limited", message: "נשלחו יותר מדי פניות. נסו שוב מחר." },
-      { status: 429 }
-    );
+    // Allow bypass in dev/testing when both the server flag and the client header are set
+    const devBypass =
+      process.env.DISABLE_RATE_LIMIT === "true" &&
+      req.headers.get("x-dev-bypass") === "1";
+
+    if (!devBypass) {
+      return NextResponse.json(
+        { error: "rate_limited", message: "נשלחו יותר מדי פניות. נסו שוב מחר." },
+        { status: 429 }
+      );
+    }
   }
 
   let body: Record<string, string>;
