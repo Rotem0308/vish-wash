@@ -56,6 +56,25 @@ export default function ContactSection() {
     }
   }, []);
 
+  /** Fire-and-forget Make / n8n webhook — URL set via NEXT_PUBLIC_MAKE_WEBHOOK_URL */
+  async function triggerWebhook(payload: typeof formState) {
+    const url = process.env.NEXT_PUBLIC_MAKE_WEBHOOK_URL;
+    if (!url) return;
+    try {
+      await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...payload,
+          submittedAt: new Date().toISOString(),
+          source: typeof window !== "undefined" ? window.location.href : "",
+        }),
+      });
+    } catch {
+      // Webhook errors are silent — don't block the UX
+    }
+  }
+
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) {
@@ -85,6 +104,8 @@ export default function ContactSection() {
       }
       localStorage.setItem(STORAGE_KEY, "1");
       setSubmitted(true);
+      // Trigger Make / n8n webhook (non-blocking)
+      triggerWebhook(formState);
     } catch {
       setError("בעיית חיבור. בדקו את האינטרנט ונסו שוב.");
     } finally {
